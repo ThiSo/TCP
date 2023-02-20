@@ -11,18 +11,16 @@ public class Label extends JLabel{
 	//construtor da label, com parâmetros variáveis
 	Label(String texto, int x, int y, int width, int height,int fontSize){
 		
-		Border border = BorderFactory.createLineBorder(Color.green, 1);
-		ImageIcon imagem = new ImageIcon("ufrgs.png");
+		Border border = BorderFactory.createLineBorder(Color.white, 1);
 		
 		//template comum de todas as labels
 		this.setText(texto);
 		this.setBorder(border);
 		this.setBounds(x,y,width,height);
-		this.setOpaque(true);
+		this.setOpaque(false);
 		this.setBackground(Color.black);
-		this.setForeground(Color.green);
-		this.setIcon(imagem);
+		this.setForeground(Color.black);
 		this.setHorizontalAlignment(JLabel.CENTER);
-		this.setFont(new Font("Comic Sans", Font.BOLD, fontSize));
+		this.setFont(new Font("Arial", Font.PLAIN, fontSize));
 	}
 }

@@ -1,24 +1,28 @@
 import javax.swing.*;
+import javax.swing.ImageIcon;
+import java.awt.*;
+
 
 public class Janela extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	
 	Janela() {
-		
+		int winWidth = 600;
+		int winHeight = 600;
+		int margin = 100;
+
 		//características da janela principal
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setTitle("Tocador de Textos");
-		this.setSize(500,550);
+		this.setTitle("JMIDI");
+		this.setSize(winWidth,winHeight);
 		this.setResizable(false);
 			
 		//estanciamento das componentes visuais e devidas correções
-		Label labelTexto = new Label("Digite seu texto abaixo",10,10,250,30, 20);
-			
-		Label labelImagem = new Label("",350,455,50,50, 0);
-		
-		Label labelInstruc = new Label("",270, 50, 200, 400, 13);
+		Label labelTexto = new Label("JMIDI - Texto para Sons",0,10,250,30, 20);
+
+		Label labelInstruc = new Label("",385, 50, 200, 375, 13);
 		labelInstruc.setVerticalAlignment(JLabel.TOP);
 		labelInstruc.setText("<html>Glossário de teclas:<br><br>"
 							+ "+ = dobrar volume<br>"
@@ -38,13 +42,15 @@ public class Janela extends JFrame{
 							+ "E/e = nota Mi<br>"
 							+ "F/f = nota Fa<br>"
 							+ "G/g = nota Sol</html>");
-		
-		CaixaTexto caixaTexto = new CaixaTexto();
+
+		ImageIcon imagem = new ImageIcon("inf.png");
+		Label labelImagem = new Label("",winWidth-125, winWidth-125,100,100, 10);
+
+		CaixaTexto caixaTexto = new CaixaTexto(10,50,375,500);
 			
 		Botão button = new Botão(caixaTexto);
-		
-		
-		//Adição dos componentes visuais á janela
+
+		//Adição dos componentes visuais à janela
 		this.add(labelImagem);
 		this.add(labelTexto);
 		this.add(labelInstruc);
@@ -52,6 +58,8 @@ public class Janela extends JFrame{
 		this.add(button);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		labelImagem.setIcon(imagem);
+
 	}
 	
 
