@@ -8,7 +8,7 @@ public class Janela extends JFrame{
 	
 	Janela() {
 		int winWidth = 600;
-		int winHeight = 600;
+		int winHeight = 620;
 		//int margin = 100;
 
 		//características da janela principal
@@ -37,7 +37,10 @@ public class Janela extends JFrame{
 		barraLateral.setBounds(caixaTexto.getBounds());
 		barraLateral.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
+		Arquivo menuArquivo = new Arquivo(caixaTexto);
+		
 		//Adição dos componentes visuais à janela
+		this.setJMenuBar(menuArquivo);
 		this.add(labelImagem);
 		this.add(labelTexto);
 		this.add(labelInstruc);
