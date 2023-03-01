@@ -2,20 +2,23 @@ public class Translator {
 
     public void translate(String text){
 
-        double volumePercent = 0.1D;
+        double MIN_VOL = 0.1D;
+        double MAX_VOL = 1.0D;
+        double volumePercent = MIN_VOL;
 
         for(int i=0; i<text.length(); i++){
             char c = text.charAt(i);
 
             switch (c){
-                case '+':
+                case ' ':
                     volumePercent = volumePercent * 2;
-                    break;
-                case '-':
-                    volumePercent = volumePercent / 2;
                     break;
             }
 
+        }
+
+        if (volumePercent > MAX_VOL){
+            volumePercent = MIN_VOL;
         }
 
         System.out.println(volumePercent);
@@ -28,8 +31,6 @@ public class Translator {
         int instrumento = 125;
 
         new MidiPlayer(notas, instrumento, volumePercent);
-
-
 
     }
 
