@@ -7,14 +7,14 @@ public class Botão extends JButton implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 
-	JTextField caixaTexto;
+	JTextArea caixaTexto;
 	
-	Botão(JTextField caixaTexto){
+	Botão(JTextArea caixaTexto){
 		
 		//template comum dos botões
 		this.caixaTexto = caixaTexto; 	//caixaTexto tem que ser re-instanciada para ser usada no actionListener
 		this.setText("Tocar texto");
-		this.setBounds(400,425,150,40);
+		this.setBounds(400,425,165,40);
 		this.addActionListener(this);
 		this.setFocusable(false);
 		
