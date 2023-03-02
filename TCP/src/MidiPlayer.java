@@ -2,9 +2,11 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MidiPlayer {
-    MidiPlayer(int noteArray[], int instCode, double gain) {
+    MidiPlayer(List<Integer> notes, int instCode, double gain) {
         try {
             Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
@@ -14,6 +16,7 @@ public class MidiPlayer {
             channel.controlChange(7, (int) (gain * 127.0));
             channel.programChange(instrumentos[instCode+1].getPatch().getProgram());
 
+            int[] noteArray = notes.stream().mapToInt(Integer::intValue).toArray();
             play(noteArray, channel);
 
         } catch (Exception e) {
