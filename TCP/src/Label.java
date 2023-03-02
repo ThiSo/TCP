@@ -16,7 +16,7 @@ public class Label extends JLabel{
 		int width = 250;
 		int height = 30;
 		int fontSize = 20;
-		Border border = BorderFactory.createLineBorder(Color.white, 1);
+		Border border = BorderFactory.createLineBorder(Color.black, 2);
 		
 		this.setText(texto);
 		this.setBorder(border);
@@ -37,7 +37,7 @@ public class Label extends JLabel{
 		int width = 190;
 		int height = 360;
 		int fontSize = 13;
-		Border border = BorderFactory.createLineBorder(Color.white, 1);
+		Border border = BorderFactory.createLineBorder(Color.black, 2);
 		
 		this.setText("<html><br>"
 					+ "Glossário de teclas:<br><br>"
