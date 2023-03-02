@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Translator {
 
     public void translate(String text){
+
+        List<Integer> notas = new ArrayList<>();
 
         double MIN_VOL = 0.1D;
         double MAX_VOL = 1.0D;
@@ -13,6 +18,27 @@ public class Translator {
                 case ' ':
                     volumePercent = volumePercent * 2;
                     break;
+                case 'C': //DÓ
+                    notas.add(24);
+                    break;
+                case 'D': //RÉ;
+                    notas.add(26);
+                    break;
+                case 'E': //MI
+                    notas.add(28);
+                    break;
+                case 'F': //FA
+                    notas.add(29);
+                    break;
+                case 'G': //SOL
+                    notas.add(31);
+                    break;
+                case 'A': //LA
+                    notas.add(33);
+                    break;
+                case 'B': //SI
+                    notas.add(35);
+                    break;
             }
 
         }
@@ -22,16 +48,11 @@ public class Translator {
         }
 
         System.out.println(volumePercent);
+        System.out.println(notas);
 
-        // -----------------------------------------------------
-        // Protótipo: para funcionar o programa preliminarmente
-        // DÓ, RÉ, MI, FÁ, SOL, LÁ, SI, DÓ (uma oitava acima)
-        // -----------------------------------------------------
-        int notas[] = {60, 62, 64, 65, 67, 69, 71, 72, 72, 71, 69, 67, 65, 64, 62, 60};
-        int instrumento = 125;
+        int instrumento = 1 ;
 
         new MidiPlayer(notas, instrumento, volumePercent);
-
     }
 
 }
