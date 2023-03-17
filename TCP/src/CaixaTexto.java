@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.*;
 
 public class CaixaTexto extends JTextArea{

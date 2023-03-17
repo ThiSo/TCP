@@ -39,25 +39,24 @@ public class Label extends JLabel{
 		int fontSize = 13;
 		Border border = BorderFactory.createLineBorder(Color.black, 2);
 		
-		this.setText("<html><br>"
-					+ "Glossário de teclas:<br><br>"
-					+ "+ = dobrar volume<br>"
-					+ "- = dividir volume por 2<br>"
-					+ "R+ = aumenta uma oitava<br>"
-					+ "R- = diminui uma oitava<br>"
-					+ "? = toca nota aleatória<br>"
-					+ "NL = mudar instrumento<br>"
-					+ "; = BPM aleatório<br>"
-					+ "BPM+ = BPM aumenta 80<br>"
-					+ "BACKSPACE = pause<br><br>"
+		this.setText("<html>"
 					+ "Glossário de notas:<br><br>"
-					+ "A/a = nota La<br>"
-					+ "B/b = nota Si<br>"
-					+ "C/c = nota Do<br>"
-					+ "D/d = nota Re<br>"
-					+ "E/e = nota Mi<br>"
-					+ "F/f = nota Fa<br>"
-					+ "G/g = nota Sol</html>");
+					+ "A = nota La<br>"
+					+ "B = nota Si<br>"
+					+ "C = nota Do<br>"
+					+ "D = nota Re<br>"
+					+ "E = nota Mi<br>"
+					+ "F = nota Fa<br>"
+					+ "G = nota Sol<br><br>"
+					+ "Glossário de Instrumentos:<br><br>"
+					+ "; = instrumento Pan Flute<br>"
+					+ ", = instrumento Church Organ<br>"
+					+ "NL = instrumento Tubular Bells<br><br>"
+					+ "Outras opções:<br><br>"
+					+ "?/. = aumenta oitava<br>"
+					+ "consoantes/a/e = repete<br>"
+					+ "&emsp;&emsp;&emsp;&ensp;&nbsp;nota ou silêncio<br>"
+					+ "BACKSPACE = dobra volume</html>");
 		this.setBorder(border);
 		this.setBounds(x,y,width,height);
 		this.setOpaque(false);

@@ -2,11 +2,9 @@ import javax.sound.midi.Instrument;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MidiPlayer {
-    MidiPlayer(List<Integer> notes, int instCode, double gain) {
+    MidiPlayer(int notes, int instCode, double gain) {
         try {
             Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
@@ -16,7 +14,7 @@ public class MidiPlayer {
             channel.controlChange(7, (int) (gain * 127.0));
             channel.programChange(instrumentos[instCode+1].getPatch().getProgram());
 
-            int[] noteArray = notes.stream().mapToInt(Integer::intValue).toArray();
+            int noteArray = notes;
             play(noteArray, channel);
 
         } catch (Exception e) {
@@ -25,13 +23,13 @@ public class MidiPlayer {
 
     }
 
-    private void play(int notes[], MidiChannel ch) throws InterruptedException {
+    private void play(int notes, MidiChannel ch) throws InterruptedException {
         try {
-            for (int i = 0; i < notes.length; i++) {
-                ch.noteOn(notes[i], 100);
-                Thread.sleep(250);              // CALCULAR AQUI OS BPM
-                ch.noteOff(notes[i]);
-            }
+            
+                ch.noteOn(notes, 100);
+                Thread.sleep(250);              
+                ch.noteOff(notes);
+           
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
         }

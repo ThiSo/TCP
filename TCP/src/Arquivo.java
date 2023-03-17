@@ -36,7 +36,7 @@ public class Arquivo extends JMenuBar implements ActionListener{
 		this.add(menuArquivo);
 	}
 
-	private void AbrirArquivo() {
+	public void abrirArquivo() {
 	
 		JFileChooser abreTexto =  new JFileChooser();
 		abreTexto.setCurrentDirectory(new File("."));
@@ -67,7 +67,7 @@ public class Arquivo extends JMenuBar implements ActionListener{
 		}
 	}
 	
-	private void SalvarArquivo() {
+	public void salvarArquivo() {
 		
 		JFileChooser salvaMidi =  new JFileChooser();
 		salvaMidi.setCurrentDirectory(new File("."));
@@ -92,25 +92,30 @@ public class Arquivo extends JMenuBar implements ActionListener{
 		}
 	}
 	
+	public void fecharSoftware() {
+		
+		System.exit(0);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		//Se o botão de abrir arquivo for pressionado
 		if(e.getSource() == abrirArquivo) {
 			
-			AbrirArquivo();
+			abrirArquivo();
 		}
 		
 		//Se o botão de salvar arquivo for pressionado
 		else if(e.getSource() == salvarArquivo) {
 			
-			SalvarArquivo();	
+			salvarArquivo();	
 		}
 		
 		//Se o botão de sair for pressionado	
 		else if(e.getSource() == sair) {
 		
-			System.exit(0);
+			fecharSoftware();
 		}
 	}
 	
