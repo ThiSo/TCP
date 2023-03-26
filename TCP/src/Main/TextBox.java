@@ -2,7 +2,7 @@ package Main;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
-
+ 
 /* Classe responsável por criar a caixa de texto onde
  * deve ser digitado/carregado o texto do usuário */
 

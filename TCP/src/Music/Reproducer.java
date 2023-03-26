@@ -11,7 +11,7 @@ public class Reproducer {
 	public static void reproduzSomSynth(Sequence sequence) throws MidiUnavailableException, InvalidMidiDataException {
 		        
 		Sequencer sequencer = MidiSystem.getSequencer();
-		
+		 
 	    sequencer.setSequence(sequence);
 	         
 	    // Inicia a reproducao, definindo o número de batidas por minuto

@@ -34,7 +34,7 @@ public class Button extends JButton implements ActionListener{
 		final int buttonPosY = 425;
 		final int buttonWidth = 165;
 		final int buttonHeight = 40;
-		
+		 
 		
 		this.textBox = textBox; 	
 		this.setText("Tocar texto");

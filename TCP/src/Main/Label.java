@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.Border;
-
+ 
 /* Classe responsável por criar construtores para as labels
  * Aqui, existem três construtores que recebem parâmetros diferentes
  * apesar de esta escolha de implementação ocasionar uma repetição
