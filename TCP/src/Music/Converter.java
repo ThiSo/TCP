@@ -1,38 +1,24 @@
 package Music;
 import javax.sound.midi.*;
 
-/* Classe que possui diversos métodos que trabalham
+/* Classe que possui um método que trabalha
  * com a conversão do texto em notas musicais, mas não
- * tocam a música propriamente dita */
+ * toca a música propriamente dita */
 
 public class Converter {
-
-	/* Método que transforma os caracteres do texto em 
-	 * valores inteiros correspondentes, e os coloca num array de notas */
-	
-	public static int[] convertTextToMusic(String text) {
-		
-		int[] noteArray = new int[text.length()];
-		for(int i = 0; i < text.length(); i++) {
-			noteArray[i] = (int) text.charAt(i);
-			//apenas para fins de debug
-			System.out.print(noteArray[i]);
-		}
-		
-		return noteArray;
-	}
 	
 	/* Método que cria a sequência de notas, com base
 	 * no array de inteiros recebido da função anterior */
 	
-	public static Sequence createMidiSequence(int[] noteArray) throws MidiUnavailableException, InvalidMidiDataException, InterruptedException {
+	public static Sequence createMidiSequence(String textInput) throws MidiUnavailableException, InvalidMidiDataException, InterruptedException {
 		
 		final int MIN_OCTAVE = 0;
 		final int MAX_OCTAVE = 9;
 		int octave = MIN_OCTAVE;
-		int defaultVolume = 25;
+		final int defaultVolume = 25;
 		int volume = defaultVolume;
 		int instrument = 1;
+		int[] noteArray = new int[textInput.length()];
 		
 		final int Dó = 12;
 		final int Ré = 14;
@@ -42,14 +28,19 @@ public class Converter {
 		final int Lá = 21;
 		final int Sí = 23;
 		
+		final int hapsichord = 6;
+		final int tubularBells = 14;
+		final int churchOrgan = 19;
+		final int panFlute = 75;
+		final int agogo = 113;
+		final int silence = 123;
+		
 		MidiEvent event;
 		boolean lastValueIsNote = false;
-		Sequencer sequencer = MidiSystem.getSequencer();
-			 
-		/* A sequência musical será feita com base neste sequenciador,
-		 * que será enviado para uma track, onde as notas serão adicionadas */
-		
-		sequencer.open();
+		 
+		/* A sequência musical será enviada para uma track,
+		 * onde as notas serão adicionadas por meio de eventos*/
+				
 	    Sequence sequence = new Sequence(Sequence.PPQ, 2); 
 	    Track track = sequence.createTrack();
 	    
@@ -61,11 +52,13 @@ public class Converter {
 	     * deve ser tocado. Algumas precauções devem ser tomadas para garantir
 	     * que a nota é a correta e está de acordo com a definição. */
 	    
-	    for (int i = 0; i < noteArray.length; i++) {
+	    for (int i = 0; i < textInput.length(); i++) {
 	    		    	
 	    	int offsetOctave = 12*octave;
-	        switch(noteArray[i]) {
-	        	case ((int) ' '):	// Aumenta volume
+	    	char character = textInput.charAt(i);
+	    	
+	        switch(character) {
+	        	case ' ':	// Aumenta volume
 	        		lastValueIsNote = false;
 		        	if(volume >= 100) {
 	        			volume = defaultVolume;
@@ -76,7 +69,7 @@ public class Converter {
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.CONTINUE), i);
 	    	        track.add(event);
 	    	        break;
-	        	case ((int) 'A'): 	// Nota = Lá
+	        	case 'A': 	// Nota = Lá
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Lá + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -84,7 +77,7 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
 	    	        break;
-	        	case ((int) 'B'): 	// Nota = Sí
+	        	case 'B': 	// Nota = Sí
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Sí + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -92,7 +85,7 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
 	        		break;
-	        	case ((int) 'C'):	// Nota = Dó
+	        	case 'C':	// Nota = Dó
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Dó + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -100,7 +93,7 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
 	        		break;
-	        	case ((int) 'D'):	// Nota = Ré
+	        	case 'D':	// Nota = Ré
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Ré + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -108,7 +101,7 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
     	            break;
-	        	case ((int) 'E'):	// Nota = Mí
+	        	case 'E':	// Nota = Mí
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Mí + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -116,7 +109,7 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
 	        		break;
-	        	case ((int) 'F'):	// Nota = Fá
+	        	case 'F':	// Nota = Fá
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Fá + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -124,7 +117,7 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
     	            break;
-	        	case ((int) 'G'):	// Nota = Sól
+	        	case 'G':	// Nota = Sól
 	        		lastValueIsNote = true;
 	        		noteArray[i] = Sól + offsetOctave;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_ON, 0, noteArray[i], volume), i);
@@ -132,53 +125,53 @@ public class Converter {
 	    	        event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i], volume), i+1);
 	    	        track.add(event);
     	            break;
-	        	case ((int) '!'): 				// Instrumento = Agogô
-	        		instrument = 113;
+	        	case '!': 							// Instrumento = Agogô
+	        		instrument = agogo;
 	        		lastValueIsNote = false;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, instrument, 0), i);
     	            track.add(event);
     	            break;
-	        	case ((int) 'O'), ((int) 'o'), ((int) 'U'), ((int) 'u'), ((int) 'I'), ((int) 'i'):
-	        		instrument = 6;
-	        		lastValueIsNote = false;	// Instrumento = Hapsichord
+	        	case 'O', 'o', 'U', 'u', 'I', 'i':	// Instrumento = Hapsichord
+	        		instrument = hapsichord;
+	        		lastValueIsNote = false;	
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, instrument, 0), i);
     	            track.add(event);
     	            break;
-	        	case ((int) '0'), ((int) '1'), ((int) '2'), ((int) '3'), ((int) '4'), ((int) '5'), ((int) '6'), ((int) '7'),((int) '8'),((int) '9'):
-	        		lastValueIsNote = false;	// Instrumento = Atual + Valor do dígito - 48 (correção do dígito em ASCII)	        		
-	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, (instrument + noteArray[i] - 48), 0), i);
+	        	case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
+	        		lastValueIsNote = false;		// Instrumento = Atual + Valor do dígito - 48 (correção do dígito em ASCII)	        		
+	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, (instrument + (int)character - 48), 0), i);
 	        		track.add(event);	
 	        		break;
-	        	case ((int) '?'), ((int) '.'): 	// Aumenta oitava
+	        	case '?', '.': 	// Aumenta oitava
 	        		lastValueIsNote = false;
 	        		octave = octave + 1;
-	        		if (octave > MAX_OCTAVE){
+	        		if (octave >= MAX_OCTAVE){
 	        			octave = MIN_OCTAVE;
 	        		}
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.CONTINUE), i);
     	            track.add(event);
     	            break;
-	        	case ((int) '\n'): 		// Instrumento = Tubular Bells
-	        		instrument = 14;
+	        	case '\n': 		// Instrumento = Tubular Bells
+	        		instrument = tubularBells;
 	        		lastValueIsNote = false;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, instrument, 0), i);
     	            track.add(event);
     	            break;
-	        	case ((int) ';'): 		// Instrumento = Pan Flute
-	        		instrument = 75;
+	        	case ';': 		// Instrumento = Pan Flute
+	        		instrument = panFlute;
 	        		lastValueIsNote = false;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, instrument, 0), i);
     	            track.add(event);
     	            break;
-	        	case ((int) ','): 		// Instrumento = Church Organ
-	        		instrument = 19;
+	        	case ',': 		// Instrumento = Church Organ
+	        		instrument = churchOrgan;
 	        		lastValueIsNote = false;
 	        		event = new MidiEvent(new ShortMessage(ShortMessage.PROGRAM_CHANGE, 0, instrument, 0), i);
 	        		track.add(event);
 	        		break;
-	        	case ((int) '*'):		// Silêncio
+	        	case '*':		// Silêncio
 	        		instrument = 123;
-	        		event = new MidiEvent(new ShortMessage(ShortMessage.CONTROL_CHANGE, 0, instrument, 0), i);
+	        		event = new MidiEvent(new ShortMessage(ShortMessage.CONTROL_CHANGE, 0, silence, 0), i);
         			track.add(event);
         			break;
 	        	default:
@@ -189,17 +182,15 @@ public class Converter {
 	        			event = new MidiEvent(new ShortMessage(ShortMessage.NOTE_OFF, 0, noteArray[i - 1], volume), i+1);
 		    	        track.add(event);
 	        		}
-	        		else { 							//Silêncio
+	        		else { 							// Silêncio
 	        			instrument = 123;
-	        			event = new MidiEvent(new ShortMessage(ShortMessage.CONTROL_CHANGE, 0, instrument, 0), i);
+	        			event = new MidiEvent(new ShortMessage(ShortMessage.CONTROL_CHANGE, 0, silence, 0), i);
 		        		track.add(event);
 	        		}
 	        	}
 	             
 	        }
-	    
-	 		sequencer.close();
-	         
+	    	 		  
 	 		return sequence;
 	}
 }
