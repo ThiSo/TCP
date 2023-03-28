@@ -8,7 +8,7 @@ import javax.sound.midi.*;
 
 public class Reproducer {
 	
-	public static void reproduzSomSynth(Sequence sequence) throws MidiUnavailableException, InvalidMidiDataException {
+	public static void playMusic(Sequence sequence) throws MidiUnavailableException, InvalidMidiDataException {
 		        
 		Sequencer sequencer = MidiSystem.getSequencer();
 		 
@@ -18,6 +18,6 @@ public class Reproducer {
 		sequencer.open();		
 		sequencer.setTempoInBPM(60);
 	    sequencer.start();	         
-	     
+	    
 	 }
 }

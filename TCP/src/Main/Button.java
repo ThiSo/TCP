@@ -35,7 +35,6 @@ public class Button extends JButton implements ActionListener{
 		final int buttonWidth = 165;
 		final int buttonHeight = 40;
 		 
-		
 		this.textBox = textBox; 	
 		this.setText("Tocar texto");
 		this.setBounds(buttonPosX, buttonPosY, buttonWidth, buttonHeight);
@@ -68,23 +67,24 @@ public class Button extends JButton implements ActionListener{
 			 * receber uma resposta, toca a música correspondente */
 			
 			String textInput = textBox.getText();
-			int[] noteArray = Converter.convertTextToMusic(textInput);
+
 			try {
-				sequence = Converter.createMidiSequence(noteArray);
-				Reproducer.reproduzSomSynth(sequence);
+				sequence = Converter.createMidiSequence(textInput);
+				Reproducer.playMusic(sequence);
 			} catch (MidiUnavailableException | InvalidMidiDataException | InterruptedException e1) {
 				e1.printStackTrace();
 			} 
-
-		}
-
+			
 			/* Por fim, re-habilita a edição da caixa de texto e o clique
 			 * do botão, para que o usuário possa executar o software novamente 
 			 * também habilita a opção de salvar o arquivo de música*/
-		
+			
 			textBox.setEditable(true);
 			FileHandler.saveFile.setEnabled(true);
 			this.setEnabled(true);
+
+
+		}
 
 	}
 }
